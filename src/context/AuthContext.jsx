@@ -12,16 +12,20 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const fetchUser = useCallback(() => getCurrentUser()
-    .then((response) => {
-      setUser(response.data);
-      return response.data;
+ 
+const fetchUser = useCallback(() =>
+  getCurrentUser()
+    .then((currentUser) => {
+      setUser(currentUser);
+      return currentUser;
     })
     .catch(() => {
       setUser(null);
       return null;
     })
-    .finally(() => setLoading(false)), []);
+    .finally(() => setLoading(false)),
+  []
+);
 
   useEffect(() => {
     fetchUser();
